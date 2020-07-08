@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -49,3 +50,43 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+player = Player(room['outside'])
+action = ''
+
+while action != 'q':
+    current_room = player.current_room
+    print(f"========== {current_room.name} ==========")
+    print(player.current_room.description)
+    print("what do you do?")
+    action = input("-")
+    print("================================================")
+    if (action == 'q'):
+        print("Thanks for playing!")
+        playing = 'q'
+    elif (action == 'n'):
+        print("Proceeding north...")
+        try:
+            player = Player(current_room.n_to)
+        except AttributeError:
+            print("The way is blocked...")
+    elif (action == 's'):
+        print("Proceeding south...")
+        try:
+            player = Player(current_room.s_to)
+        except AttributeError:
+            print("The way is blocked...")
+    elif (action == 'e'):
+        print("Proceeding east...")
+        try:
+            player = Player(current_room.e_to)
+        except AttributeError:
+            print("The way is blocked...")
+    elif (action == 'w'):
+        print("Proceeding west...")
+        try:
+            player = Player(current_room.w_to)
+        except AttributeError:
+            print("The way is blocked...")
+
+print("================================================")
